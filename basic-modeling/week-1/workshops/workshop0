@@ -1,0 +1,20 @@
+{
+    "openFiles": [
+        "data.dzn",
+        "hello.mzn",
+        "io.mzn",
+        "x110.mzn"
+    ],
+    "openTab": 3,
+    "projectFiles": [
+        "data.dzn",
+        "hello.mzn",
+        "io.mzn",
+        "scratch",
+        "scratch.mzn",
+        "x110.mzn"
+    ],
+    "selectedBuiltinConfigId": "org.gecode.gecode",
+    "selectedBuiltinConfigVersion": "6.3.0",
+    "version": 106
+}
