@@ -3,16 +3,17 @@
         "data.dzn",
         "hello.mzn",
         "io.mzn",
-        "x110.mzn"
+        "x110.mzn",
+        "xopt.mzn"
     ],
-    "openTab": 3,
+    "openTab": 4,
     "projectFiles": [
         "data.dzn",
         "hello.mzn",
         "io.mzn",
-        "scratch",
         "scratch.mzn",
-        "x110.mzn"
+        "x110.mzn",
+        "xopt.mzn"
     ],
     "selectedBuiltinConfigId": "org.gecode.gecode",
     "selectedBuiltinConfigVersion": "6.3.0",

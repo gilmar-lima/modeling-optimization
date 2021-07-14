@@ -1,3 +1,3 @@
-int: n;
+par int: n;
 
 output ["n= \(n)"];
