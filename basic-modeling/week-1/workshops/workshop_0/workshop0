@@ -4,14 +4,18 @@
         "hello.mzn",
         "io.mzn",
         "x110.mzn",
-        "xopt.mzn"
+        "xopt.mzn",
+        "array.mzn",
+        "sequence.mzn"
     ],
-    "openTab": 4,
+    "openTab": 6,
     "projectFiles": [
+        "array.mzn",
         "data.dzn",
         "hello.mzn",
         "io.mzn",
         "scratch.mzn",
+        "sequence.mzn",
         "x110.mzn",
         "xopt.mzn"
     ],
