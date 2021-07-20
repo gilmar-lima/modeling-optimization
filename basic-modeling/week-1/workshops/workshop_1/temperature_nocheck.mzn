@@ -20,4 +20,4 @@ constraint forall (h in HOUR) (cost[h] = choice_cost[choices[h]]);
 
 solve minimize sum (cost);
 
-output["temp = \(temp)\n choice = \(choices) \n cost = \(sum(cost))"];
+output["temp = \(temp)\nchoice = \(choices) \ncost = \(sum(cost))"];
