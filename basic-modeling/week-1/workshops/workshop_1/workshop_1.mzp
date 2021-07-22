@@ -1,17 +1,13 @@
 {
-    "builtinSolverConfigs": [
-    ],
     "openFiles": [
         "temperature_nd.mzn",
         "temperature.mzn",
-        "data/temp1.dzn",
-        "data/temp2.dzn",
-        "data/temp3.dzn",
-        "data/temp4.dzn",
-        "data/temp0.dzn"
+        "temperature_solution.mzn",
+        "temperature_nocheck.mzn"
     ],
-    "openTab": 0,
+    "openTab": 3,
     "projectFiles": [
+        "../workshop_0/sequence.mzn",
         "data/temp0.dzn",
         "data/temp1.dzn",
         "data/temp2.dzn",
@@ -20,34 +16,11 @@
         "temperature.mzc",
         "temperature.mzn",
         "temperature_nd.mzc",
-        "temperature_nd.mzn"
-    ],
-    "projectSolverConfigs": [
-        {
-            "additionalCompilerCommandline": "",
-            "additionalData": "",
-            "clearOutputWindow": false,
-            "compressSolutionOutput": 100,
-            "defaultBehavior": true,
-            "flatteningStats": false,
-            "freeSearch": false,
-            "id": "org.chuffed.chuffed",
-            "nThreads": 1,
-            "name": "Project solver configuration",
-            "optimizationLevel": 1,
-            "outputTiming": true,
-            "printIntermediate": false,
-            "runSolutionChecker": true,
-            "solverFlags": "",
-            "solvingStats": false,
-            "stopAfter": 1,
-            "timeLimit": 0,
-            "verboseFlattening": false,
-            "verboseSolving": false,
-            "version": "0.9.0"
-        }
+        "temperature_nd.mzn",
+        "temperature_nocheck.mzn",
+        "temperature_solution.mzn"
     ],
     "selectedBuiltinConfigId": "org.gecode.gecode",
-    "selectedBuiltinConfigVersion": "6.0.1",
-    "version": 105
+    "selectedBuiltinConfigVersion": "6.3.0",
+    "version": 106
 }
