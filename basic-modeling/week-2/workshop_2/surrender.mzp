@@ -1,0 +1,23 @@
+{
+    "openFiles": [
+        "surrender.mzn",
+        "data/surrender_1.dzn",
+        "data/surrender_2.dzn",
+        "data/surrender_3.dzn",
+        "data/surrender_4.dzn",
+        "surrender.mzc"
+    ],
+    "openTab": 4,
+    "projectFiles": [
+        "data/surrender_0.dzn",
+        "data/surrender_1.dzn",
+        "data/surrender_2.dzn",
+        "data/surrender_3.dzn",
+        "data/surrender_4.dzn",
+        "surrender.mzc",
+        "surrender.mzn"
+    ],
+    "selectedBuiltinConfigId": "org.gecode.gecode",
+    "selectedBuiltinConfigVersion": "6.3.0",
+    "version": 106
+}
