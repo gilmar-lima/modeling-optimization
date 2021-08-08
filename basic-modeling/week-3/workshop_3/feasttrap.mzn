@@ -1,5 +1,7 @@
 % Beauty Trap
 % Create the most magnificient feast 
+include "global_cardinality.mzn";
+
 enum DISH;
 enum TASTE = {spicy, sour, salty, sweet, umame, bland};
 enum TEMP = {hot, cold, warm};
@@ -19,5 +21,13 @@ array[DISH] of int: value;
 int: len; % length of banquet
 set of int: COURSE = 1..len;
 
+%intermediate parameter
+array[DISH] of DISH : dishes = [d | d in DISH];
+array[DISH] of int : dishes_occurence = [1 | d in DISH];
+
 array[COURSE] of var DISH: dish;
+
+
+
+constraint global_cardinality(dish, dishes, dishes_occurence);
 
