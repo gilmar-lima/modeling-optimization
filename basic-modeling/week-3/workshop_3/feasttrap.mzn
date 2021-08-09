@@ -22,4 +22,10 @@ array[COURSE] of var DISH: dish;
 constraint alldifferent(dish);
 %No same taste in a row
 constraint forall(i,j in COURSE where j == i+1)(taste[dish[i]] != taste[dish[j]]);
+%First dish salty
+constraint taste[dish[1]] == salty;
+%Last dish sweet
+constraint taste[dish[len]] == sweet;
+
+
 
