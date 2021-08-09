@@ -4,7 +4,7 @@ include "global_cardinality.mzn";
 include "alldifferent.mzn";
 
 enum DISH;
-enum TASTE = {spicy, sour, salty, sweet, umami, bland};
+enum TASTE = {spicy, sour, salty, sweet, umame, bland};
 enum TEMP = {hot, cold, warm};
 
 array[DISH] of TASTE: taste;
@@ -31,10 +31,10 @@ constraint forall(i,j in COURSE where j == i+1)((taste[dish[i]] == spicy) ->
                                                 (taste[dish[j]] == bland \/ taste[dish[j]] == sweet));
 %After sour bland or unami
 constraint forall(i,j in COURSE where j == i+1)((taste[dish[i]] == sour) -> 
-                                                (taste[dish[j]] == bland \/ taste[dish[j]] == umami));
+                                                (taste[dish[j]] == bland \/ taste[dish[j]] == umame));
 %No spicy or umami directly after sweet
 constraint forall(i,j in COURSE where j == i+1)((taste[dish[i]] == sweet) -> 
-                                                (taste[dish[j]] != spicy /\ taste[dish[j]] != umami));
+                                                (taste[dish[j]] != spicy /\ taste[dish[j]] != umame));
 %Betweem hot and cold must be warm
 constraint forall(i,j,k in COURSE where j == i+1 /\ k == i+2)((temp[dish[i]] == hot) -> 
                                                             (temp[dish[j]] == warm \/ temp[dish[k]] == cold));
