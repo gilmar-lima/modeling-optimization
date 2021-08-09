@@ -1,17 +1,11 @@
 % Beauty Trap
 % Create the most magnificient feast 
 include "global_cardinality.mzn";
+include "alldifferent.mzn";
 
 enum DISH;
 enum TASTE = {spicy, sour, salty, sweet, umame, bland};
 enum TEMP = {hot, cold, warm};
-%int: ndish;
-%set of int: DISH = 1..ndish;
-%set of int: TASTE = 1..6;
-%int: spicy = 1; int: sour = 2; int: salty = 3; int: sweet = 4; int: umame = 5; int: bland = 6;
-%set of int: TEMP = 1..3;
-%int: hot = 1; int: cold = 2; int: warm = 3;
-
 
 array[DISH] of TASTE: taste;
 array[DISH] of TEMP: temp;
@@ -21,13 +15,10 @@ array[DISH] of int: value;
 int: len; % length of banquet
 set of int: COURSE = 1..len;
 
-%intermediate parameter
-array[DISH] of DISH : dishes = [d | d in DISH];
-array[DISH] of int : dishes_occurence = [1 | d in DISH];
 
 array[COURSE] of var DISH: dish;
 
-
-
-constraint global_cardinality(dish, dishes, dishes_occurence);
+%Dishes must occur oncef
+constraint alldifferent(dish);
+%constraint forall(i,j in COURSE where j = i+1) ()
 
