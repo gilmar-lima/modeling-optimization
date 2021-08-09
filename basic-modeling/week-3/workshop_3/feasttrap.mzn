@@ -37,7 +37,7 @@ constraint forall(i,j in COURSE where j == i+1)((taste[dish[i]] == sweet) ->
                                                 (taste[dish[j]] != spicy /\ taste[dish[j]] != umame));
 %Betweem hot and cold must be warm
 constraint forall(i,j,k in COURSE where j == i+1 /\ k == i+2)((temp[dish[i]] == hot) -> 
-                                                            (temp[dish[j]] == warm \/ temp[dish[k]] == cold));
+                                                            (temp[dish[j]] == warm /\ temp[dish[k]] == cold));
 
 %Two heavy dishes in a row
 constraint forall(i,j in COURSE where j == i+1)((heavy[dish[i]] == true) -> (heavy[dish[j]] == false));
