@@ -18,7 +18,8 @@ set of int: COURSE = 1..len;
 
 array[COURSE] of var DISH: dish;
 
-%Dishes must occur oncef
+%Dishes must occur once
 constraint alldifferent(dish);
-%constraint forall(i,j in COURSE where j = i+1) ()
+%No same taste in a row
+constraint forall(i,j in COURSE where j == i+1)(taste[dish[i]] != taste[dish[j]]);
 
