@@ -1,49 +1,22 @@
 {
-    "builtinSolverConfigs": [
-    ],
     "openFiles": [
         "feasttrap.mzn",
-        "data/feasttrap_0.dzn",
         "data/feasttrap_1.dzn",
-        "data/feasttrap_2.dzn",
-        "data/feasttrap_3.dzn",
-        "data/feasttrap_4.dzn"
+        "feasttrap_solution.mzn"
     ],
-    "openTab": 6,
+    "openTab": 2,
     "projectFiles": [
+        "../../week-2/workshop_2/surrender.mzn",
         "data/feasttrap_0.dzn",
         "data/feasttrap_1.dzn",
         "data/feasttrap_2.dzn",
         "data/feasttrap_3.dzn",
         "data/feasttrap_4.dzn",
         "feasttrap.mzc",
-        "feasttrap.mzn"
+        "feasttrap.mzn",
+        "feasttrap_solution.mzn"
     ],
-    "projectSolverConfigs": [
-        {
-            "additionalCompilerCommandline": "",
-            "additionalData": "",
-            "clearOutputWindow": false,
-            "compressSolutionOutput": 100,
-            "defaultBehavior": true,
-            "flatteningStats": false,
-            "freeSearch": false,
-            "id": "org.chuffed.chuffed",
-            "nThreads": 1,
-            "name": "Project solver configuration",
-            "optimizationLevel": 1,
-            "outputTiming": false,
-            "printIntermediate": false,
-            "runSolutionChecker": true,
-            "solverFlags": "",
-            "solvingStats": false,
-            "stopAfter": 1,
-            "timeLimit": 0,
-            "verboseFlattening": false,
-            "verboseSolving": false,
-            "version": "0.9.0"
-        }
-    ],
-    "selectedProjectConfig": 0,
-    "version": 105
+    "selectedBuiltinConfigId": "org.gecode.gecode",
+    "selectedBuiltinConfigVersion": "6.3.0",
+    "version": 106
 }
