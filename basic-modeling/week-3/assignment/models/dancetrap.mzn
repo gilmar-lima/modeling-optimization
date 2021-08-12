@@ -1,7 +1,7 @@
 % Beauty Trap
 % Perform the most seductive dance
 include "regular.mzn";
-include "global_cardinality.mzn";
+include "global_cardinality_low_up.mzn";
 
 enum LEGS = {spin, leap, waltz, curtsey, prep, stand};
 enum ARMS = {beckon, out, up, wrapped, neutral};
@@ -32,6 +32,7 @@ constraint assert(entice_value[neutral,blank] = 0, "incorrect entice_value array
 % 2. Number of occurences in a row will have a separate constaint.
 % 3. Number of occurences of each move will be modeled with golbal_constraint function.
 % 4. For impossible combinations put a constaint not permiting values less than 0.
+
 
 constraint regular([legs[s] | s in STEP], 7, card(LEGS), legs_dfa, 1,{7});
 %2-spin, 3-leap, 4-waltz, 5-curtsey, 6-prep, 7-stand
@@ -80,17 +81,15 @@ constraint forall(s in STEP)(entice_value[arms[s],face[s]] >= 0);
              
 %Number of occurences constraints
 constraint forall(l in LEGS)
-                 (global_cardinality([legs[s] | s in STEP],[l],[maxlegs[l]]));
+                 (global_cardinality_low_up([legs[s] | s in STEP],[l],[0],[maxlegs[l]]));
 
 constraint forall(a in ARMS)
-                 (global_cardinality([arms[s] | s in STEP],[a],[maxarms[a]]));
+                 (global_cardinality_low_up([arms[s] | s in STEP],[a],[0],[maxarms[a]]));
 
 constraint forall(f in FACE)
-                 (global_cardinality([face[s] | s in STEP],[f],[maxface[f]]));
+                 (global_cardinality_low_up([face[s] | s in STEP],[f],[0],[maxface[f]]));
 
-
-
-var int: obj = sum(s in STEP)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom*len;
+var int: obj = sum(s in 1..len)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom*len;
 
 solve maximize obj;
 
