@@ -1,13 +1,14 @@
 % Beauty Trap
 % Perform the most seductive dance
 include "regular.mzn";
-include "global_cardinality";
+include "global_cardinality.mzn";
 
 enum LEGS = {spin, leap, waltz, curtsey, prep, stand};
 enum ARMS = {beckon, out, up, wrapped, neutral};
 enum FACE = {smile, wink, batt, think, glow, blank};
 
 int: maxlen;
+int: boredom; % how bored each step make the viewer
 set of int: STEP = 1..maxlen;
 array[LEGS] of int: maxlegs;
 array[ARMS] of int: maxarms;
@@ -15,12 +16,16 @@ array[FACE] of int: maxface;
 array[LEGS,ARMS] of int: dance_value;
 array[ARMS,FACE] of int: entice_value;
 
+var STEP: len;
+array[STEP] of var LEGS: legs;
+array[STEP] of var ARMS: arms;
+array[STEP] of var FACE: face;
+
 constraint assert(maxlegs[stand] >= maxlen, "maxlegs[stand] smaller than maxlen");
 constraint assert(maxarms[neutral] >= maxlen, "maxarms[neutral] smaller than maxlen");
 constraint assert(maxface[blank] >= maxlen, "maxface[blank] smaller than maxlen");
 constraint assert(dance_value[stand,neutral] = 0, "incorrect dance_value array");
 constraint assert(entice_value[neutral,blank] = 0, "incorrect entice_value array");
-int: boredom; % how bored each step make the viewer
 
 %Solution steps:
 % 1. Draw the state machines for sequences of moves legs, arms and face.
@@ -69,26 +74,23 @@ constraint forall(s in 1..maxlen-2)
                  (not (face[s+2] == face[s+1])));
 
 %Strange combinations and impossible
-constraint forall(s in STEP)(dance_value[legs[s],arms[s]] > 0);
+constraint forall(s in STEP)(dance_value[legs[s],arms[s]] >= 0);
 
-constraint forall(s in STEP)(entice_value[arms[s],face[s]] > 0);
+constraint forall(s in STEP)(entice_value[arms[s],face[s]] >= 0);
              
 %Number of occurences constraints
 constraint forall(l in LEGS)
-                 (global_cardinality([legs[s] | s in STEP],l,maxlegs[l]));
+                 (global_cardinality([legs[s] | s in STEP],[l],[maxlegs[l]]));
 
 constraint forall(a in ARMS)
-                 (global_cardinality([arms[s] | s in STEP],a,maxarms[a]));
+                 (global_cardinality([arms[s] | s in STEP],[a],[maxarms[a]]));
 
 constraint forall(f in FACE)
-                 (global_cardinality([face[s] | s in STEP],f,maxface[f]));
+                 (global_cardinality([face[s] | s in STEP],[f],[maxface[f]]));
 
-var STEP: len;
-array[STEP] of var LEGS: legs;
-array[STEP] of var ARMS: arms;
-array[STEP] of var FACE: face;
 
-var int: obj = sum(s in STEP)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom;
+
+var int: obj = sum(s in STEP)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom*len;
 
 solve maximize obj;
 
