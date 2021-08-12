@@ -76,18 +76,16 @@ constraint forall(s in 1..maxlen-2)
 
 %Strange combinations and impossible
 constraint forall(s in STEP)(dance_value[legs[s],arms[s]] >= 0);
-
 constraint forall(s in STEP)(entice_value[arms[s],face[s]] >= 0);
              
 %Number of occurences constraints
-constraint forall(l in LEGS)
-                 (global_cardinality_low_up([legs[s] | s in STEP],[l],[0],[maxlegs[l]]));
+constraint global_cardinality_low_up([legs[s] | s in STEP],[l | l in LEGS],[0 | l in LEGS],[maxlegs[l] | l in LEGS]);
+constraint global_cardinality_low_up([arms[s] | s in STEP],[a | a in ARMS],[0 | a in ARMS],[maxarms[a] | a in ARMS]);
+constraint global_cardinality_low_up([face[s] | s in STEP],[f | f in FACE],[0 | f in FACE],[maxface[f] | f in FACE]);
 
-constraint forall(a in ARMS)
-                 (global_cardinality_low_up([arms[s] | s in STEP],[a],[0],[maxarms[a]]));
-
-constraint forall(f in FACE)
-                 (global_cardinality_low_up([face[s] | s in STEP],[f],[0],[maxface[f]]));
+% constraint legs[len] == stand;
+% constraint arms[len] == neutral;
+% constraint face[len] == blank;
 
 var int: obj = sum(s in 1..len)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom*len;
 
