@@ -33,7 +33,6 @@ constraint assert(entice_value[neutral,blank] = 0, "incorrect entice_value array
 % 3. Number of occurences of each move will be modeled with golbal_constraint function.
 % 4. For impossible combinations put a constaint not permiting values less than 0.
 
-
 constraint regular([legs[s] | s in STEP], 7, card(LEGS), legs_dfa, 1,{7});
 %2-spin, 3-leap, 4-waltz, 5-curtsey, 6-prep, 7-stand
 array[1..7,LEGS] of 0..7: legs_dfa = 
@@ -83,9 +82,9 @@ constraint global_cardinality_low_up([legs[s] | s in STEP],[l | l in LEGS],[0 | 
 constraint global_cardinality_low_up([arms[s] | s in STEP],[a | a in ARMS],[0 | a in ARMS],[maxarms[a] | a in ARMS]);
 constraint global_cardinality_low_up([face[s] | s in STEP],[f | f in FACE],[0 | f in FACE],[maxface[f] | f in FACE]);
 
-% constraint legs[len] == stand;
-% constraint arms[len] == neutral;
-% constraint face[len] == blank;
+constraint forall(s in STEP where s > len)(legs[s] == stand);
+constraint forall(s in STEP where s > len)(arms[s] == neutral);
+constraint forall(s in STEP where s > len)(face[s] == blank);
 
 var int: obj = sum(s in 1..len)(dance_value[legs[s],arms[s]] + entice_value[arms[s],face[s]]) - boredom*len;
 
