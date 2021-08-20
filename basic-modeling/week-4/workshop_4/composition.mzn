@@ -1,6 +1,6 @@
 include "alldifferent.mzn";
 
-par int : n = 13;
+par int : n = 8;
 par set of int: POSSIBLE_NOTES = 1..n;
 
 array[POSSIBLE_NOTES] of var POSSIBLE_NOTES: order;
