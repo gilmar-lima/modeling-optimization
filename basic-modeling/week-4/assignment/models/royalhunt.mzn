@@ -9,22 +9,25 @@ array[COURT] of int: ability;
 int: m; % number of horses
 set of int: HORSE = 1..m;
 set of int: HORSE0 = 0..m;
+set of int: COURT0 = 0..n;
 array[HORSE] of int: beauty;
 array[HORSE] of int: speed;
 array[COURT,HORSE] of int: enjoy;
 
 array[COURT] of var HORSE0: assigned_horse;
-%array[HORSE] of var COURT: horse_to_court;
+array[HORSE] of var COURT0: assigned_court;
 array[COURT] of var int: joyfullness;
+%Count the number of violations
+var int: violations = sum(h1,h2 in HORSE where h1 != h2)(violation(h1,h2));
 
 var int: zeroes = if((n-m) < 0)
                   then 0
                   else n-m
                   endif;
-var int: objective = sum (c in COURT)(if assigned_horse[c] == 0 
-                                      then 0 
-                                      else enjoy[c,assigned_horse[c]]
-                                      endif);
+var int: objective = sum (c in COURT)(joyfullness[c]) - 100*violations;
+
+predicate violation(var int: horse1, var int: horse2) = not( (speed[horse1] >= speed[horse2]) -> 
+                                                        (ability[assigned_court[horse1]] >= ability[assigned_court[horse2]] \/ assigned_court[horse2] == 0 \/ (assigned_court[horse1] == 0 /\ assigned_court[horse2] == 0))); 
 
 %Horse must occur once
 %constraint global_cardinality(assigned_horse,[h | h in HORSE],[1 | h in HORSE]);
@@ -51,7 +54,9 @@ constraint forall(c1,c2 in COURT where c1 != c2)((rank[c1] > rank[c2]) ->
                                                   (assigned_horse[c2] == 0 /\ assigned_horse[c1] == 0)
                                                   )
                                                  );
+constraint forall(c in COURT where assigned_horse[c] != 0)(assigned_court[assigned_horse[c]] = c);
+
 
 solve maximize objective;
 
-output["horse = \(assigned_horse);\nobjective = \(objective);\njoyfullness =\(joyfullness)"];
+output["horse = \(assigned_horse);\nobjective = \(objective);\njoyfullness =\(joyfullness);\nassigned_court  =\(assigned_court);\nviolations =\(violations)"];
