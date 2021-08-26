@@ -14,9 +14,10 @@ array[HORSE] of int: beauty;
 array[HORSE] of int: speed;
 array[COURT,HORSE] of int: enjoy;
 
-array[COURT] of var HORSE0: assigned_horse;
+array[COURT] of var HORSE0: horse;
 array[HORSE] of var COURT0: assigned_court;
 array[COURT] of var int: joyfullness;
+
 %Count the number of violations
 var int: violations = sum(h1,h2 in HORSE where h1 != h2)(violation(h1,h2));
 
@@ -24,19 +25,21 @@ var int: zeroes = if((n-m) < 0)
                   then 0
                   else n-m
                   endif;
+
 var int: objective = sum (c in COURT)(joyfullness[c]) - 100*violations;
 
-predicate violation(var int: horse1, var int: horse2) = not( (speed[horse1] >= speed[horse2]) -> 
+predicate violation(var int: horse1, var int: horse2) = not( (speed[horse1] > speed[horse2]) -> 
                                                         (ability[assigned_court[horse1]] >= ability[assigned_court[horse2]] \/ assigned_court[horse2] == 0 \/ (assigned_court[horse1] == 0 /\ assigned_court[horse2] == 0))); 
 
 %Horse must occur once
-%constraint global_cardinality(assigned_horse,[h | h in HORSE],[1 | h in HORSE]);
-constraint alldifferent_except_0(assigned_horse);
+%constraint global_cardinality(horse,[h | h in HORSE],[1 | h in HORSE]);
+constraint alldifferent_except_0(horse);
+constraint alldifferent_except_0(assigned_court);
 
 %Filling the joy array
-constraint forall(c in COURT)(joyfullness[c] = if assigned_horse[c] == 0 
+constraint forall(c in COURT)(joyfullness[c] = if horse[c] == 0 
                                                then 0 
-                                               else enjoy[c,assigned_horse[c]]
+                                               else enjoy[c,horse[c]]
                                                endif);
 %Emperor must enjoy the most                  
 constraint forall(c in COURT where c != 1)(joyfullness[1] > joyfullness[c]);
@@ -45,18 +48,19 @@ constraint forall(c in COURT where c != 1)(joyfullness[1] > joyfullness[c]);
 constraint forall(c in COURT)(joyfullness[c] != -1);
 
 %All court members must ride unless horse not available
-constraint count(assigned_horse,0,zeroes); 
-    
+constraint count(horse,0,zeroes); 
+
 %Higher rank
 constraint forall(c1,c2 in COURT where c1 != c2)((rank[c1] > rank[c2]) ->
-                                                 ((beauty[assigned_horse[c1]] >= beauty[assigned_horse[c2]]) \/
-                                                  (assigned_horse[c2] == 0) \/
-                                                  (assigned_horse[c2] == 0 /\ assigned_horse[c1] == 0)
+                                                 ((beauty[horse[c1]] >= beauty[horse[c2]]) \/
+                                                  (horse[c2] == 0) \/
+                                                  (horse[c2] == 0 /\ horse[c1] == 0)
                                                   )
                                                  );
-constraint forall(c in COURT where assigned_horse[c] != 0)(assigned_court[assigned_horse[c]] = c);
-
+constraint forall(c in COURT where horse[c] != 0)(assigned_court[horse[c]] = c);
+constraint forall(h in HORSE)((not(assigned_court[h] in COURT)) -> (assigned_court[h] = 0));
 
 solve maximize objective;
 
-output["horse = \(assigned_horse);\nobjective = \(objective);\njoyfullness =\(joyfullness);\nassigned_court  =\(assigned_court);\nviolations =\(violations)"];
+output["horse = \(horse);\nobjective = \(objective);\nenjoyment = \(joyfullness);\nassigned_court = \(assigned_court)"];
+%output["horse = \(horse);\nobjective = \(objective);"];
