@@ -1,7 +1,7 @@
 {
     "openFiles": [
         "models/royalhunt.mzn",
-        "models/royalhunt2.mzn"
+        "data/royalhunt_7.dzn"
     ],
     "openTab": 0,
     "projectFiles": [
@@ -18,7 +18,7 @@
         "data/royalhunt_7.dzn",
         "models/royalhunt.mzc.mzn",
         "models/royalhunt.mzn",
-        "models/royalhunt2.mzn"
+        "models/royalhunt_.mzn"
     ],
     "selectedBuiltinConfigId": "org.gecode.gecode",
     "selectedBuiltinConfigVersion": "6.3.0",

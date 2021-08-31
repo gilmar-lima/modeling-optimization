@@ -54,7 +54,7 @@ predicate violation(var int: horse1, var int: horse2) = not( (speed[horse1] > sp
                                                         (ability0[horse_to_court[horse1]] >= ability0[horse_to_court[horse2]] \/ horse_to_court[horse1] == 0 \/ (horse_to_court[horse1] == 0 /\ horse_to_court[horse2] == 0))); 
 
 %Count the number of violations
-var int: violations = sum(h1,h2 in HORSE where h1 < h2)(violation(h1,h2));
+var int: violations = sum(h1,h2 in HORSE where h1 != h2)(violation(h1,h2));
                                                
 var int: objective = sum (c in COURT)(joyfullness[c]) - 100*violations;
 
