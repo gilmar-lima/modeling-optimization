@@ -1,0 +1,17 @@
+string: _mzn_solution_checker = "@eAF1UU1v4jAUvOdXeDkHREKggWhPqNLeKpXtYYWqyiHu1m1iU8dBosqP77wXQ79lYtnz3sw8\nD9rs6q5SYtTa+qDcnVOVutdGe21NO2lezKiI9LnHV7Uuz6hfCVNErfLC3gu+rq9urv+K3yKZ\nTFBhSDV75awjsIikc/Iottx2e2Y5aZ5+qslS19ofg1jz0e7P1fXmcrBDJQgw+CZQKtkR//tq\nu1eq+ugdf2pR5tGC/8V3CuPpe+O3yQ/ShZ6VeLCuVWH8O1s+qp3XBwC28/vOi+1oc7NeX242\nK/HPdk40tlK12FnjpTatkHVNalqWtWqFU8+dxj8kyqPwD0r8d7JS7tfotogMpkmzIqIscdzm\n8Rwr42/G+yK+iFOc0zjBjdAMZ0KBQSEkTeQMLVN8KYizQCMsD0jKwiS0JBGQG9DmRTSETRIJ\nN+ZxjiKHTOAiDJQB5FgJ7El7TmP0CcahW94v+QSfnkbl9anKM/XDZDNwYTWsd9UkPDJh7gk7\nqQwvWaJKAVH1Am5DQOOkH9PO4rgs6Hz6wTUsqAHhLYdKileA0I+HzMl4xjFi54cMJIxLCDDk\n8ApLWfZo\n";
+output ["horse = "++format(horse)++";\nobjective = "++format(objective)++";"];
+function string : format(array [$U] of opt $T: x) = show(x);
+function string : format(opt $T: x) = show(x);
+set of int: COURT = 1..24;
+set of int: HORSE = 1..5;
+array [COURT] of int: horse:: mzn_check_var;
+array [COURT] of int: joyfullness;
+predicate violation(var int: horse1,var int: horse2) = not (speed[horse1] > speed[horse2] -> ability0[horse_to_court[horse1]]>=ability0[horse_to_court[horse2]] \/ horse_to_court[horse1]==0 \/ horse_to_court[horse1]==0 /\ horse_to_court[horse2]==0);
+array [HORSE] of int: speed = [6,4,5,4,4];
+array [COURT0] of int: ability0 = array1d(0..24,[max(ability)+1,4,1,0,1,2,5,3,7,2,3,4,1,8,2,5,3,2,4,5,2,1,9,4,2]);
+set of int: COURT0 = 0..24;
+array [COURT] of int: ability = [4,1,0,1,2,5,3,7,2,3,4,1,8,2,5,3,2,4,5,2,1,9,4,2];
+array [HORSE] of int: horse_to_court;
+int: violations;
+int: objective = sum([joyfullness[c] | c in COURT, ])-100*violations;
+int: _objective:: mzn_check_var = objective;
